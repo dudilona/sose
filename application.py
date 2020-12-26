@@ -5,7 +5,7 @@ from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, login_required, usd
+from helpers import apology, login_required, usd, admin_required
 
 # Configure application
 app = Flask(__name__)
@@ -98,19 +98,21 @@ def register():
 
         # Query database for admin - first user will be admin
         rows = db.execute("SELECT * FROM user")
-        isAdmin = 0
+        is_admin = 0
         if len(rows) == 0:
-            isAdmin = 1
+            is_admin = 1
 
         # Create the user in the data base
-        passHash = generate_password_hash(password)
-        userId = db.execute("INSERT INTO user (username, hash, fullname, phone, email, address, is_admin) "
-                            "VALUES (:username, :hash, :fullname, :phone, :email, :address, :is_admin)"
-                            , username=username, hash=passHash, fullname=fullname, phone=phone, email=email,
-                            address=address, is_admin=isAdmin)
+        pass_hash = generate_password_hash(password)
+        user_id = db.execute("INSERT INTO user (username, hash, fullname, phone, email, address, is_admin) "
+                             "VALUES (:username, :hash, :fullname, :phone, :email, :address, :is_admin)"
+                             , username=username, hash=pass_hash, fullname=fullname, phone=phone, email=email,
+                             address=address, is_admin=is_admin)
 
         # Remember which user has logged in
-        session["user_id"] = userId
+        session["user_id"] = user_id
+        if is_admin == 1:
+            session["admin"] = user_id
 
         # Redirect user to home page
         flash('Registered!')
@@ -152,6 +154,8 @@ def login():
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
+        if rows[0]["is_admin"] == 1:
+            session["admin"] = rows[0]["id"]
 
         # Redirect user to home page
         flash(username + ', welcome!')
@@ -167,3 +171,13 @@ def logout():
 
     # Redirect user to login form
     return redirect("/")
+
+
+@app.route("/admin")
+@admin_required
+def admin():
+    """ Admin panel"""
+    if request.method == "GET":
+        return render_template("admin.html")
+
+    return apology("Method Not Allowed", 405)

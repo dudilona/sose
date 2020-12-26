@@ -30,6 +30,21 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+
+def admin_required(f):
+    """
+    Decorate routes to require admin access.
+
+    http://flask.pocoo.org/docs/1.0/patterns/viewdecorators/
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("admin") is None:
+            return apology("not found", 404)
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 def usd(value):
     """Format value as USD."""
     return f"${value:,.2f}"
