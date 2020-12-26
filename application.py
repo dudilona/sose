@@ -188,6 +188,9 @@ def admin_global():
 def admin_users():
     """ Admin panel"""
     if request.method == "GET":
-        return render_template("admin/users.html")
+        # Get all users
+        users = db.execute("SELECT * FROM user")
+
+        return render_template("admin/users.html", users=users)
 
     return apology("Method Not Allowed", 405)

@@ -1,10 +1,38 @@
 {% extends "admin-layout.html" %}
-{% extends "admin-layout.html" %}
 
 {% block title_inner %}
     Users
 {% endblock %}
 
 {% block main_inner %}
-    Users
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">username</th>
+            <th scope="col">email</th>
+            <th scope="col">phone</th>
+            <th scope="col">fullname</th>
+            <th scope="col">address</th>
+            <th scope="col">is_admin</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row">{{ user['id'] }}</th>
+                <td>{{ user['username'] }}</td>
+                <td>{{ user['email'] }}</td>
+                <td>{{ user['phone'] }}</td>
+                <td>{{ user['fullname'] }}</td>
+                <td>{{ user['address'] }}</td>
+                {%  if user['is_admin'] == 1 %}
+                    <td class="text-center" style="padding: 0"><i class="bi bi-check" style="font-size: x-large; color: forestgreen"></i></td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
