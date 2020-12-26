@@ -173,11 +173,21 @@ def logout():
     return redirect("/")
 
 
-@app.route("/admin")
+@app.route("/admin/global")
 @admin_required
-def admin():
+def admin_global():
     """ Admin panel"""
     if request.method == "GET":
-        return render_template("admin.html")
+        return render_template("admin/global.html")
+
+    return apology("Method Not Allowed", 405)
+
+
+@app.route("/admin/users")
+@admin_required
+def admin_users():
+    """ Admin panel"""
+    if request.method == "GET":
+        return render_template("admin/users.html")
 
     return apology("Method Not Allowed", 405)
