@@ -34,17 +34,21 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/catalog">Catalog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contacts">Contacts</a>
-                    </li>
+                <ul class="navbar-nav me-auto mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/catalog">Catalog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contacts">Contacts</a></li>
                 </ul>
+                {% if session.user_id %}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                    </ul>
+                {% else %}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                    </ul>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -57,7 +61,7 @@
         </header>
     {% endif %}
 
-    <main>
+    <main class="pt-3">
         {% block main %}{% endblock %}
     </main>
 
