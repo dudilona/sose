@@ -96,11 +96,18 @@ def register():
         if password != password2:
             return apology("The passwords aren't equal", 400)
 
+        # Query database for admin - first user will be admin
+        rows = db.execute("SELECT * FROM user")
+        isAdmin = 0
+        if len(rows) == 0:
+            isAdmin = 1
+
         # Create the user in the data base
         passHash = generate_password_hash(password)
-        userId = db.execute("INSERT INTO user (username, hash, fullname, phone, email, address) "
-                   "VALUES (:username, :hash, :fullname, :phone, :email, :address)"
-                   , username=username, hash=passHash, fullname=fullname, phone=phone, email=email, address=address)
+        userId = db.execute("INSERT INTO user (username, hash, fullname, phone, email, address, is_admin) "
+                            "VALUES (:username, :hash, :fullname, :phone, :email, :address, :is_admin)"
+                            , username=username, hash=passHash, fullname=fullname, phone=phone, email=email,
+                            address=address, is_admin=isAdmin)
 
         # Remember which user has logged in
         session["user_id"] = userId
