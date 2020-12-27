@@ -1,0 +1,54 @@
+{% extends "admin-layout.html" %}
+
+{% block title_inner %}
+    Users
+{% endblock %}
+
+{% block main_inner %}
+
+    <form action="/admin/users/edit" method="post" class="form-register">
+        <h1 class="h3 mb-3 fw-normal text-center">Edit user</h1>
+        <div class="mb-3">
+            <input name="id" type="number" value="{{ user.id }}" readonly hidden required>
+            <label for="username" class="form-label text-left">Username</label>
+            <input id="username" autocomplete="off" class="form-control" name="username"
+                   placeholder="Username" type="text" required value="{{ user.username }}">
+        </div>
+        <div class="mb-3">
+            <label for="fullname" class="form-label text-left">Fullname</label>
+            <input id="fullname" autocomplete="off" class="form-control" name="fullname" placeholder="Full name"
+                   type="text" required
+                   value="{{ user.fullname }}">
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label text-left">Phone</label>
+            <input id="phone" autocomplete="off" class="form-control" name="phone" placeholder="Phone number" type="tel"
+                   required
+                   value="{{ user.phone }}">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label text-left">Email</label>
+            <input id="email" autocomplete="off" class="form-control" name="email" placeholder="Email" type="email"
+                   required
+                   value="{{ user.email }}">
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label text-left">Address <span class="text-muted">(Optional)</span></label>
+            <input id="address" autocomplete="off" class="form-control" name="address" placeholder="Address" type="text"
+                   value="{{ user.address }}">
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="admin" name="admin" {% if user.is_admin == 1 %}checked{% endif %}>
+            <label class="form-check-label" for="admin">Make this user an admin</label>
+        </div>
+        <div class="row mt-4">
+            <div class="col-8">
+                <button class="btn btn-secondary" type="button" style="width: 100%">Change password</button>
+            </div>
+            <div class="col ps-0">
+                <button class="btn btn-primary" type="submit" style="width: 100%">Save</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

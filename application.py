@@ -178,7 +178,7 @@ def logout():
 @app.route("/admin/global")
 @admin_required
 def admin_global():
-    """ Admin panel"""
+    """ Admin panel - global"""
     if request.method == "GET":
         return render_template("admin/global.html")
 
@@ -188,7 +188,7 @@ def admin_global():
 @app.route("/admin/users", methods=["GET", "DELETE"])
 @admin_required
 def admin_users():
-    """ Admin panel"""
+    """ Admin panel - users"""
     if request.method == "GET":
         # Get all users
         users = db.execute("SELECT * FROM user")
@@ -201,5 +201,42 @@ def admin_users():
         db.execute("DELETE FROM user WHERE id = :id", id=user_id)
 
         return Response(status=200)
+
+    return apology("Method Not Allowed", 405)
+
+
+@app.route("/admin/users/edit", methods=["GET", "POST"])
+@admin_required
+def admin_users_edit():
+    """ Admin panel - user edit"""
+    if request.method == "GET":
+        user_id = request.args.get("userId")
+        user = db.execute("SELECT * FROM user WHERE id = :id", id=user_id)[0]
+
+        return render_template("admin/user-edit.html", user=user)
+
+    if request.method == "POST":
+        user = request.form
+        is_admin = 0
+        if 'admin' in user and user['admin'] == "on":
+            is_admin = 1
+
+        db.execute("UPDATE user SET username = :username, "
+                   + "fullname = :fullname, "
+                   + "phone = :phone, "
+                   + "email = :email, "
+                   + "address = :address, "
+                   + "is_admin = :is_admin"
+                   + " WHERE id = :user_id",
+                   username=user['username'],
+                   fullname=user['fullname'],
+                   phone=user['phone'],
+                   email=user['email'],
+                   address=user['address'],
+                   is_admin=is_admin,
+                   user_id=user['id']
+                   )
+
+        return redirect("/admin/users")
 
     return apology("Method Not Allowed", 405)

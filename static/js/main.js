@@ -6,7 +6,7 @@ let deletedUserId;
 function deleteUser(userId) {
     deletedUserId = userId;
     let modal = new bootstrap.Modal(document.getElementById('deleteUserModal'), {keyboard: true});
-    modal.show()
+    modal.show();
 }
 
 function confirmUserDeletion() {
@@ -16,10 +16,14 @@ function confirmUserDeletion() {
                 userId: deletedUserId
             }
         })
-        .then(function (response) {
+        .then(function () {
             window.location.reload(true);
         })
         .catch(function (error) {
             console.log(error);
         });
+}
+
+function editUser(userId) {
+    window.location.href = "/admin/users/edit?userId=" + userId;
 }
