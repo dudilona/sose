@@ -27,7 +27,11 @@
                 <td>{{ user['fullname'] }}</td>
                 <td>{{ user['address'] }}</td>
                 {%  if user['is_admin'] == 1 %}
-                    <td class="text-center" style="padding: 0"><i class="bi bi-check" style="font-size: x-large; color: forestgreen"></i></td>
+                    <td class="text-center" style="color: forestgreen">
+                        <svg class="bi" width="27" height="27" fill="currentColor">
+                            <use xlink:href="/static/bootstrap-icons.svg#check"/>
+                        </svg>
+                    </td>
                 {% else %}
                     <td></td>
                 {% endif %}
