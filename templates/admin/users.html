@@ -14,7 +14,8 @@
             <th scope="col" data-sortable="true">phone</th>
             <th scope="col" data-sortable="true">fullname</th>
             <th scope="col" data-sortable="true">address</th>
-            <th scope="col" data-sortable="true">is_admin</th>
+            <th scope="col">is_admin</th>
+            <th scope="col">operate</th>
         </tr>
         </thead>
         <tbody>
@@ -26,17 +27,50 @@
                 <td>{{ user['phone'] }}</td>
                 <td>{{ user['fullname'] }}</td>
                 <td>{{ user['address'] }}</td>
-                {%  if user['is_admin'] == 1 %}
+                {% if user['is_admin'] == 1 %}
                     <td class="text-center" style="color: forestgreen">
                         <svg class="bi" width="27" height="27" fill="currentColor">
-                            <use xlink:href="/static/bootstrap-icons.svg#check"/>
+                            <use xlink:href="/static/css/bootstrap-icons.svg#check"/>
                         </svg>
                     </td>
                 {% else %}
                     <td></td>
                 {% endif %}
+                <td class="text-center">
+                    <a class="remove" href="javascript:void(0)" title="Edit">
+                        <svg class="bi" width="20" height="20" fill="currentColor">
+                            <use xlink:href="/static/css/bootstrap-icons.svg#pencil-square"/>
+                        </svg>
+                    </a>
+                    &nbsp;
+                    <a class="remove" href="javascript:deleteUser({{ user['id'] }})" title="Remove">
+                        <svg class="bi" width="20" height="20" fill="currentColor">
+                            <use xlink:href="/static/css/bootstrap-icons.svg#trash-fill"/>
+                        </svg>
+                    </a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <!-- Modal - delete user -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    Do you want to delete the user?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="javascript:confirmUserDeletion()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

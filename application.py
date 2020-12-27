@@ -1,5 +1,7 @@
+import json
+
 from cs50 import SQL
-from flask import Flask, flash, jsonify, redirect, render_template, request, session
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, Response
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
@@ -183,7 +185,7 @@ def admin_global():
     return apology("Method Not Allowed", 405)
 
 
-@app.route("/admin/users")
+@app.route("/admin/users", methods=["GET", "DELETE"])
 @admin_required
 def admin_users():
     """ Admin panel"""
@@ -192,5 +194,12 @@ def admin_users():
         users = db.execute("SELECT * FROM user")
 
         return render_template("admin/users.html", users=users)
+
+    if request.method == "DELETE":
+        # Delete the user from database
+        user_id = json.loads(request.data)['userId']
+        db.execute("DELETE FROM user WHERE id = :id", id=user_id)
+
+        return Response(status=200)
 
     return apology("Method Not Allowed", 405)
