@@ -26,3 +26,11 @@ a {
     padding: 15px;
     margin: auto;
 }
+
+h3 {
+    font-weight: 400;
+}
+
+.form-floating textarea {
+    font-size: 0.9rem;
+}

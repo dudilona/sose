@@ -1,0 +1,83 @@
+{% extends "admin/admin-layout.html" %}
+
+{% block title_inner %}
+    Settings
+{% endblock %}
+
+{% block main_inner %}
+    <div class="mb-4">
+        <h3>Global</h3>
+        <hr>
+        <form action="/admin/settings/global" method="post">
+            <div class="mb-3">
+                <label for="store_name" class="form-label text-left">Store name (title)</label>
+                <input id="store_name" autocomplete="off" class="form-control" name="store_name" placeholder="Some text" type="text"
+                        {% if settings and settings['store_name'] %} value="{{ settings['store_name'] }}" {% endif %} style="width: 300px">
+            </div>
+            <div class="mb-3">
+                <label for="favicon" class="form-label text-left">Site icon - favicon.ico</label>
+                <input id="favicon" autocomplete="off" class="form-control" name="favicon" type="file" accept=".ico" style="width: 300px">
+            </div>
+            <label for="footer_desc" class="mb-2"> Footer description</label>
+            <div class="form-floating mb-3">
+                <textarea class="form-control pt-2" id="footer_desc" name="footer_desc" style="height: 100px; max-width: 750px"
+                >{% if settings and settings['footer_desc'] %}{{ settings['footer_desc'] }}{% endif %}</textarea>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mb-4">
+        <h3>Main page</h3>
+        <hr>
+        <form action="/admin/settings/main" method="post">
+            <div class="mb-3">
+                <label for="main_header" class="form-label text-left">Main page header</label>
+                <input id="main_header" autocomplete="off" class="form-control" name="main_header" placeholder="Some text" type="text"
+                       style="width: 300px" {% if settings and settings['main_header'] %} value="{{ settings['main_header'] }}" {% endif %}>
+            </div>
+            <div class="mb-3">
+                <label for="mainImage" class="form-label text-left">Main page image</label>
+                <input id="mainImage" autocomplete="off" class="form-control" name="mainImage" type="file" accept=".png, .jpg, .jpeg"
+                       style="width: 300px">
+            </div>
+            <label for="main_desc" class="mb-2">Main page description</label>
+            <div class="form-floating mb-3">
+                <textarea class="form-control pt-2" id="main_desc" name="main_desc" style="height: 100px; max-width: 750px"
+                >{% if settings and settings['main_desc'] %}{{ settings['main_desc'] }}{% endif %}</textarea>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+        <hr>
+    </div>
+
+    <div class="mb-4">
+        <h3>Contacts</h3>
+        <hr>
+        <form action="/admin/settings/contacts" method="post">
+            <div class="mb-3">
+                <label for="phone" class="form-label text-left">Phone number</label>
+                <input id="phone" autocomplete="off" class="form-control" name="phone" placeholder="+7 (926) 243-23-54" type="tel"
+                       style="width: 300px" {% if settings and settings['phone'] %} value="{{ settings['phone'] }}" {% endif %}>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label text-left">Email</label>
+                <input id="email" autocomplete="off" class="form-control" name="email" placeholder="anybody@gmail.com" type="email"
+                       style="width: 300px" {% if settings and settings['email'] %} value="{{ settings['email'] }}" {% endif %}>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label text-left">Address</label>
+                <input id="address" autocomplete="off" class="form-control" name="address" placeholder="Some address" type="text"
+                       style="width: 750px" {% if settings and settings['address'] %} value="{{ settings['address'] }}" {% endif %}>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+        <hr>
+    </div>
+{% endblock %}

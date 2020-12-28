@@ -30,12 +30,65 @@ def admin_required(f):
     return decorated_function
 
 
-@bp.route("/admin/global")
+@bp.route("/admin/settings")
 @admin_required
-def admin_global():
-    """ Admin panel - global"""
+def admin_settings():
+    """ Admin panel - settings"""
     if request.method == "GET":
-        return render_template("admin/global.html")
+        # Get setting query
+        db = get_db()
+        settings = db.execute("SELECT * FROM settings").fetchone()
+
+        return render_template("/admin/settings.html", settings=settings)
+
+    return apology("Method Not Allowed", 405)
+
+
+@bp.route("/admin/settings/global", methods=["POST"])
+@admin_required
+def admin_settings_global():
+    """ Admin panel - settings global"""
+    if request.method == "POST":
+        settings = request.form
+        # Update the settings
+        db = get_db()
+        db.execute("UPDATE settings SET 'store_name' = ?, 'footer_desc' = ? WHERE id = 1", (settings['store_name'], settings['footer_desc']))
+        db.commit()
+
+        return redirect("/admin/settings")
+
+    return apology("Method Not Allowed", 405)
+
+
+@bp.route("/admin/settings/main", methods=["POST"])
+@admin_required
+def admin_settings_main():
+    """ Admin panel - settings main page"""
+    if request.method == "POST":
+        settings = request.form
+        # Update the settings
+        db = get_db()
+        db.execute("UPDATE settings SET 'main_header' = ?, 'main_desc' = ? WHERE id = 1", (settings['main_header'], settings['main_desc']))
+        db.commit()
+
+        return redirect("/admin/settings")
+
+    return apology("Method Not Allowed", 405)
+
+
+@bp.route("/admin/settings/contacts", methods=["POST"])
+@admin_required
+def admin_settings_contacts():
+    """ Admin panel - settings contacts page"""
+    if request.method == "POST":
+        settings = request.form
+        # Update the settings
+        db = get_db()
+        db.execute("UPDATE settings SET 'phone' = ?, 'email' = ?, 'address' = ? WHERE id = 1",
+                   (settings['phone'], settings['email'], settings['address']))
+        db.commit()
+
+        return redirect("/admin/settings")
 
     return apology("Method Not Allowed", 405)
 
