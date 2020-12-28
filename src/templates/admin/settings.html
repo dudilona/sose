@@ -37,17 +37,24 @@
     <div class="mb-4">
         <h3>Main page</h3>
         <hr>
-        <form action="/admin/settings/main" method="post">
-            <div class="mb-3">
-                <label for="main_header" class="form-label text-left">Main page header</label>
-                <input id="main_header" autocomplete="off" class="form-control" name="main_header" placeholder="Some text" type="text"
-                       style="width: 300px" {% if settings and settings['main_header'] %} value="{{ settings['main_header'] }}" {% endif %}>
-            </div>
-            <div class="mb-3">
-                <label for="mainImage" class="form-label text-left">Main page image</label>
-                <input id="mainImage" autocomplete="off" class="form-control" name="mainImage" type="file" accept=".png, .jpg, .jpeg"
-                       style="width: 300px">
-            </div>
+        <form action="/admin/settings/main" method="post" enctype="multipart/form-data">
+
+                <div style="max-width: 300px">
+                    <div class="mb-3">
+                        <label for="main_header" class="form-label text-left">Main page header</label>
+                        <input id="main_header" autocomplete="off" class="form-control" name="main_header" placeholder="Some text" type="text"
+                                {% if settings and settings['main_header'] %} value="{{ settings['main_header'] }}" {% endif %}>
+                    </div>
+                    <div class="mb-3">
+                        <label for="main_image_input" class="form-label text-left">Main page image</label>
+                        <input id="main_image_input" autocomplete="off" class="form-control" name="main_image_input" type="file" accept=".png, .jpg, .jpeg"
+                        >
+                    </div>
+                </div>
+                <div>
+                    <img id="main_image" src="/static/img/home.jpg" class="img-thumbnail mb-3">
+                </div>
+
             <label for="main_desc" class="mb-2">Main page description</label>
             <div class="form-floating mb-3">
                 <textarea class="form-control pt-2" id="main_desc" name="main_desc" style="height: 100px; max-width: 750px"

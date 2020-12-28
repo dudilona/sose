@@ -77,6 +77,12 @@ def admin_settings_main():
         db.execute("UPDATE settings SET 'main_header' = ?, 'main_desc' = ? WHERE id = 1", (settings['main_header'], settings['main_desc']))
         db.commit()
 
+        # File upload
+        file = request.files['main_image_input']
+        if file and allowed_file(file.filename):
+            filename = "home.jpg"
+            file.save(os.path.join(UPLOAD_IMG_FOLDER, filename))
+
         return redirect("/admin/settings")
 
     return apology("Method Not Allowed", 405)

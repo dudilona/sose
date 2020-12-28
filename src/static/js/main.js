@@ -1,24 +1,31 @@
-// Admin panel section
+// # Admin panel section
 
-// Setings
-// Favicon
-function readURL(input) {
+// ## Settings
+
+// Paste image file from input
+function pasteImageFromInput(input, id) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
 
     reader.onload = function(e) {
-      $('#favicon_img').attr('src', e.target.result);
+      $(id).attr('src', e.target.result);
     }
 
     reader.readAsDataURL(input.files[0]); // convert to base64 string
   }
 }
 
+// Favicon icon
 $("#favicon_input").change(function() {
-  readURL(this);
+  pasteImageFromInput(this, "#favicon_img");
 });
 
-// Users
+// Main image
+$("#main_image_input").change(function() {
+  pasteImageFromInput(this, "#main_image");
+});
+
+// # Users
 let deletedUserId;
 
 function deleteUser(userId) {
