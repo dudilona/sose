@@ -6,6 +6,9 @@
 
 {% block main %}
     <div class="text-center">
+        <div class="mb-3">
+            <a class="btn btn-primary" style="width: 250px" role="button" href="javascript:history.back()">Go Back</a>
+        </div>
         <img alt="{{ top }}" class="border "
              src="http://memegen.link/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?alt=https://i.imgur.com/CsCgN7Ll.png"
              title="{{ top }}">
