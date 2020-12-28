@@ -1,3 +1,4 @@
+import os
 from functools import wraps
 
 from flask import Blueprint
@@ -5,9 +6,10 @@ from flask import redirect
 from flask import render_template
 from flask import request
 from flask import session
-
+from src import UPLOAD_IMG_FOLDER
 from src import apology
 from src.db import get_db
+from src.helpers import allowed_file
 
 bp = Blueprint("admin_settings", __name__)
 
@@ -52,6 +54,12 @@ def admin_settings_global():
         db = get_db()
         db.execute("UPDATE settings SET 'store_name' = ?, 'footer_desc' = ? WHERE id = 1", (settings['store_name'], settings['footer_desc']))
         db.commit()
+
+        # File upload
+        file = request.files['favicon']
+        if file and allowed_file(file.filename):
+            filename = "favicon.ico"
+            file.save(os.path.join(UPLOAD_IMG_FOLDER, filename))
 
         return redirect("/admin/settings")
 

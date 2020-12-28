@@ -7,6 +7,10 @@ from werkzeug.exceptions import HTTPException, InternalServerError, default_exce
 
 from src.helpers import apology
 
+# Config for img files upload
+UPLOAD_IMG_FOLDER = 'src/static/img'
+ALLOWED_IMG_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'ico'}
+
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
@@ -17,6 +21,10 @@ def create_app(test_config=None):
         # store the database in the instance folder
         DATABASE=os.path.join(app.instance_path, "shop.db"),
     )
+
+    # Config for img files upload
+    app.config['UPLOAD_FOLDER'] = UPLOAD_IMG_FOLDER
+    app.config['ALLOWED_IMG_EXTENSIONS'] = ALLOWED_IMG_EXTENSIONS
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

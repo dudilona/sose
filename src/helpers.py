@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, current_app
 
 
 def apology(message, code=400):
@@ -21,3 +21,9 @@ def apology(message, code=400):
 def usd(value):
     """Format value as USD."""
     return f"${value:,.2f}"
+
+
+def allowed_file(filename):
+    """Check the file extensions"""
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in current_app.config["ALLOWED_IMG_EXTENSIONS"]

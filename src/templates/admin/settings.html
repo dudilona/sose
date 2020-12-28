@@ -8,16 +8,21 @@
     <div class="mb-4">
         <h3>Global</h3>
         <hr>
-        <form action="/admin/settings/global" method="post">
+        <form action="/admin/settings/global" method="post" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="store_name" class="form-label text-left">Store name (title)</label>
                 <input id="store_name" autocomplete="off" class="form-control" name="store_name" placeholder="Some text" type="text"
                         {% if settings and settings['store_name'] %} value="{{ settings['store_name'] }}" {% endif %} style="width: 300px">
             </div>
-            <div class="mb-3">
-                <label for="favicon" class="form-label text-left">Site icon - favicon.ico</label>
-                <input id="favicon" autocomplete="off" class="form-control" name="favicon" type="file" accept=".ico" style="width: 300px">
+
+
+            <label for="favicon" class="form-label text-left">Site icon - favicon.ico</label>
+            <div>
+                <input id="favicon_input" autocomplete="off" class="form-control me-2" name="favicon" type="file" accept=".ico"
+                       style="width: 300px; float: left">
+                <img id="favicon_img" src="/static/img/favicon.ico" class="img-thumbnail" style="max-height: 38px;">
             </div>
+
             <label for="footer_desc" class="mb-2"> Footer description</label>
             <div class="form-floating mb-3">
                 <textarea class="form-control pt-2" id="footer_desc" name="footer_desc" style="height: 100px; max-width: 750px"
