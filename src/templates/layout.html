@@ -50,8 +50,20 @@
                 {% if session.user_id %}
                     <ul class="navbar-nav ml-auto">
                         {% if session.admin %}
-                            <li class="nav-item"><a class="nav-link" href="/admin/settings">Admin panel</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/settings">
+                                    Admin panel
+                                </a>
+                            </li>
                         {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/edit">
+                                <svg class="bi" width="23" height="23" fill="currentColor">
+                                    <use xlink:href="/static/css/bootstrap-icons.svg#person-fill"/>
+                                </svg>
+                                {{ session.username }}
+                            </a>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                     </ul>
                 {% else %}

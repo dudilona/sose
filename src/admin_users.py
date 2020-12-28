@@ -5,6 +5,7 @@ from flask import flash
 from flask import redirect
 from flask import render_template
 from flask import request
+from flask import session
 from werkzeug.security import generate_password_hash
 
 from src import apology
@@ -67,6 +68,10 @@ def admin_users_edit():
                    (user['username'], user['fullname'], user['phone'], user['email'], user['address'], is_admin, user['id'])
                    )
         db.commit()
+
+        # If admin change him username
+        if session['user_id'] == int(user['id']):
+            session['username'] = user['username']
 
         flash("User data edited successfully")
         return redirect("/admin/users")

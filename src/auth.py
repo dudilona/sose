@@ -87,6 +87,7 @@ def register():
 
         # Remember which user has logged in
         session["user_id"] = user_id
+        session['username'] = username
         if is_admin == 1:
             session["admin"] = user_id
 
@@ -131,6 +132,7 @@ def login():
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
+        session['username'] = username
         if rows[0]["is_admin"] == 1:
             session["admin"] = rows[0]["id"]
 
