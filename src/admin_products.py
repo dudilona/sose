@@ -41,7 +41,7 @@ def admin_products():
 @bp.route("/admin/products/add", methods=["GET", "POST"])
 @admin_required
 def admin_products_add():
-    """ Admin panel - add new products"""
+    """ Admin panel - add new product"""
     if request.method == "GET":
         return render_template("admin/product-add.html")
 
@@ -60,6 +60,44 @@ def admin_products_add():
             filename = "product" + str(product_id) + ".png"
             file.save(os.path.join(UPLOAD_IMG_FOLDER + "/products", filename))
         flash("Product added successfully")
+        return redirect("/admin/products")
+
+    return apology("Method Not Allowed", 405)
+
+
+@bp.route("/admin/products/edit")
+@admin_required
+def admin_products_edit_page():
+    """ Admin panel - edit the product"""
+    if request.method == "GET":
+        product_id = request.args['productId']
+
+        db = get_db()
+        product = db.execute("SELECT * FROM product WHERE id = ?", (product_id,)).fetchone()
+
+        return render_template("admin/product-edit.html", product=product)
+
+    return apology("Method Not Allowed", 405)
+
+
+@bp.route("/admin/products/<int:product_id>/edit", methods=["POST"])
+@admin_required
+def admin_products_edit_update(product_id):
+    if request.method == "POST":
+        product = request.form
+        # Update new product
+        db = get_db()
+        db.execute("UPDATE product set name = ?, price = ?, header = ?, instruction = ?, info = ?"
+                   "WHERE id = ?",
+                   (product['name'], product['price'], product['header'], product['instruction'], product['info'], product_id))
+        db.commit()
+
+        # File upload
+        file = request.files['product_image_input']
+        if file and allowed_file(file.filename):
+            filename = "product" + str(product_id) + ".png"
+            file.save(os.path.join(UPLOAD_IMG_FOLDER + "/products", filename))
+        flash("Product updated successfully")
         return redirect("/admin/products")
 
     return apology("Method Not Allowed", 405)

@@ -1,0 +1,64 @@
+{% extends "admin/admin-layout.html" %}
+
+{% block title_inner %}
+    Edit the product
+{% endblock %}
+
+{% block main_inner %}
+    <div class="mb-4">
+        <h3>Add new product</h3>
+        <hr>
+        <form action="/admin/products/{{ product['id'] }}/edit" method="post" enctype="multipart/form-data">
+
+            <div class="row">
+                <div class="col-xl-5 col-lg-7 col-md-8 col-sm-7 mb-3">
+                    <label for="name" class="form-label text-left">Product name</label>
+                    <input id="name" autocomplete="off" autofocus class="form-control" name="name" type="text" required
+                           value="{{ product['name'] }}">
+                </div>
+
+                <div class="col-xl-2 col-lg-2 col-md-3 col-sm-4 mb-3">
+                    <label for="price" class="form-label text-left">Price $</label>
+                    <input id="price" autocomplete="off" class="form-control" min="0" name="price" type="number" step="0.01" required
+                           value="{{ product['price'] }}">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="header" class="form-label text-left">Product header</label>
+                <input id="header" autocomplete="off" autofocus class="form-control" name="header" type="text" style="max-width: 750px"
+                       value="{{ product['header'] }}">
+            </div>
+
+            <label for="instruction" class="mb-2">Product instruction</label>
+            <div class="form-floating mb-3">
+                <textarea class="form-control pt-2" id="instruction" name="instruction" style="height: 100px; max-width: 750px"
+                >{{ product['instruction'] }}</textarea>
+            </div>
+
+            <label for="info" class="mb-2">Product info</label>
+            <div class="form-floating mb-3">
+                <textarea class="form-control pt-2" id="info" name="info" style="height: 100px; max-width: 750px"
+                >{{ product['info'] }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="product_image_input" class="form-label text-left">Product image</label>
+                <input id="product_image_input" autocomplete="off" class="form-control" name="product_image_input" type="file"
+                       style="max-width: 300px" accept=".png, .jpg, .jpeg">
+            </div>
+            <div class="mb-4">
+                <label for="product_image_input">
+                    <img id="product_image" src="/static/img/products/product{{ product['id'] }}.png" class="img-thumbnail mb-3"
+                         alt="Add the new file"
+                         style="max-width: 300px">
+                </label>
+            </div>
+
+            <div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

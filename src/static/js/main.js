@@ -89,3 +89,7 @@ function confirmProductDeletion() {
             console.log(error);
         });
 }
+
+function editProduct(productId) {
+    window.location.href = "/admin/products/edit?productId=" + productId;
+}
