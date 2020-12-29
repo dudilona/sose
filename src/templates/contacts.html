@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Contacts
+{% endblock %}
+
+{% block main %}
+    <h1 class="display-5 mb-4">Contacts</h1>
+    <h4 class="mb-4" style="font-weight: 350">For all questions, please contact:</h4>
+    <p><b>Tel:</b> {{ settings.phone }}</p>
+    <p><b>Email:</b> {{ settings.email }}</p>
+    <p><b>Address:</b> {{ settings.address }}</p>
+    <hr>
+{% endblock %}

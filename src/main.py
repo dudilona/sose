@@ -8,3 +8,9 @@ bp = Blueprint("main", __name__)
 def index():
     """Show home page"""
     return render_template("home.html")
+
+
+@bp.route("/contacts")
+def contacts():
+    """Show home page"""
+    return render_template("contacts.html")
