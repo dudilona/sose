@@ -34,3 +34,12 @@ h3 {
 .form-floating textarea {
     font-size: 0.9rem;
 }
+
+.price {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+#price-input-group {
+  max-width: 255px;
+}
