@@ -72,12 +72,13 @@ def create_app(test_config=None):
     db.init_app(app)
 
     # apply the blueprints to the app
-    from src import auth, main, admin_users, admin_settings, user
+    from src import auth, main, admin_users, admin_settings, admin_products, user
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(main.bp)
     app.register_blueprint(admin_settings.bp)
     app.register_blueprint(admin_users.bp)
+    app.register_blueprint(admin_products.bp)
     app.register_blueprint(user.bp)
 
     # make url_for('index') == url_for('blog.index')

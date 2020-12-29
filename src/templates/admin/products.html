@@ -1,0 +1,66 @@
+{% extends "admin/admin-layout.html" %}
+
+{% block title_inner %}
+    Products
+{% endblock %}
+
+{% block main_inner %}
+    <a class="btn btn-primary" href="/admin/products/add" role="button" style="width: 200px; margin-top: 10px">Add new product</a>
+    <table class="table table-striped" data-toggle="table" data-search="true">
+        <thead>
+        <tr>
+            <th scope="col">image</th>
+            <th scope="col" data-sortable="true">id</th>
+            <th scope="col" data-sortable="true">product name</th>
+            <th scope="col" data-sortable="true">price</th>
+            <th scope="col">operate</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <th scope="row">
+                    <img src="/static/img/products/product{{ product['id']  }}.png" class="img-thumbnail" alt="product{{ product['id']  }}.png"
+                         style="max-height: 90px">
+                </th>
+                <td>{{ product['id'] }}</td>
+                <td>{{ product['name'] }}</td>
+                <td>{{ product['price'] }}</td>
+                <td class="text-center">
+                    <a class="remove" href="javascript:editProduct({{ product['id'] }})" title="Edit">
+                        <svg class="bi" width="20" height="20" fill="currentColor">
+                            <use xlink:href="/static/css/bootstrap-icons.svg#pencil-square"/>
+                        </svg>
+                    </a>
+                    &nbsp;
+                    <a class="remove" href="javascript:deleteProduct({{ product['id'] }})" title="Remove">
+                        <svg class="bi" width="20" height="20" fill="currentColor">
+                            <use xlink:href="/static/css/bootstrap-icons.svg#trash-fill"/>
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal - delete user -->
+    <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    Do you want to delete the product?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="javascript:confirmProductDeletion()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

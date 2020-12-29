@@ -1,6 +1,4 @@
-// # Admin panel section
-
-// ## Settings
+// # Common
 
 // Paste image file from input
 function pasteImageFromInput(input, id) {
@@ -14,6 +12,11 @@ function pasteImageFromInput(input, id) {
     reader.readAsDataURL(input.files[0]); // convert to base64 string
   }
 }
+// ##########################################################################
+
+// # Admin panel section
+
+// ## Settings
 
 // Favicon icon
 $("#favicon_input").change(function() {
@@ -24,8 +27,9 @@ $("#favicon_input").change(function() {
 $("#main_image_input").change(function() {
   pasteImageFromInput(this, "#main_image");
 });
+// ##########################################################################
 
-// # Users
+// ## Users
 let deletedUserId;
 
 function deleteUser(userId) {
@@ -52,3 +56,11 @@ function confirmUserDeletion() {
 function editUser(userId) {
     window.location.href = "/admin/users/edit?userId=" + userId;
 }
+// ##########################################################################
+
+// ## Products
+
+// Product image
+$("#product_image_input").change(function() {
+  pasteImageFromInput(this, "#product_image");
+});
