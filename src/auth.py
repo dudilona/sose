@@ -35,6 +35,7 @@ def login_required(f):
 def register():
     """Register user"""
     if request.method == "GET":
+        session['page'] = "register"
         return render_template("auth/register.html")
 
     if request.method == "POST":
@@ -107,6 +108,7 @@ def login():
 
     # User reached route via GET (as by clicking a link or via redirect)
     if request.method == "GET":
+        session['page'] = "login"
         return render_template("auth/login.html")
 
     # User reached route via POST (as by submitting a form via POST)

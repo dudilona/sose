@@ -20,6 +20,7 @@ bp = Blueprint("user", __name__)
 def user_edit():
     """ User panel - user edit"""
     if request.method == "GET":
+        session['page'] = "user"
         user_id = session['user_id']
         db = get_db()
         user = db.execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()

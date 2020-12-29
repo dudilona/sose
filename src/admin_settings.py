@@ -35,6 +35,7 @@ def admin_required(f):
 def admin_settings():
     """ Admin panel - settings"""
     if request.method == "GET":
+        session['page'] = "admin"
         # Get setting query
         db = get_db()
         settings = db.execute("SELECT * FROM settings").fetchone()

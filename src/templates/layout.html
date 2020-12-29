@@ -43,21 +43,26 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/catalog">Catalog</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contacts">Contacts</a></li>
+                    <li class="nav-item"><a {% if session.page == "home" %}class="nav-link active" aria-current="page"
+                                            {% else %}class="nav-link"{% endif %} href="/">Home</a></li>
+                    <li class="nav-item"><a {% if session.page == "catalog" %}class="nav-link active" aria-current="page"
+                                            {% else %}class="nav-link"{% endif %} href="/catalog">Catalog</a></li>
+                    <li class="nav-item"><a {% if session.page == "contacts" %}class="nav-link active" aria-current="page"
+                                            {% else %}class="nav-link"{% endif %} href="/contacts">Contacts</a></li>
                 </ul>
                 {% if session.user_id %}
                     <ul class="navbar-nav ml-auto">
                         {% if session.admin %}
                             <li class="nav-item">
-                                <a class="nav-link" href="/admin/settings">
+                                <a {% if session.page == "admin" %}class="nav-link active" aria-current="page"
+                                   {% else %}class="nav-link"{% endif %} href="/admin/settings">
                                     Admin panel
                                 </a>
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/edit">
+                            <a {% if session.page == "user" %}class="nav-link active" aria-current="page"
+                               {% else %}class="nav-link"{% endif %} href="/user/edit">
                                 <svg class="bi" width="23" height="23" fill="currentColor">
                                     <use xlink:href="/static/css/bootstrap-icons.svg#person-fill"/>
                                 </svg>
@@ -68,8 +73,14 @@
                     </ul>
                 {% else %}
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                        <li class="nav-item">
+                            <a {% if session.page == "register" %}class="nav-link active" aria-current="page"
+                               {% else %}class="nav-link"{% endif %} href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a {% if session.page == "login" %}class="nav-link active" aria-current="page"
+                               {% else %}class="nav-link"{% endif %} href="/login">Log In</a>
+                        </li>
                     </ul>
                 {% endif %}
             </div>
