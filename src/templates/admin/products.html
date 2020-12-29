@@ -25,7 +25,7 @@
                 </th>
                 <td>{{ product['id'] }}</td>
                 <td>{{ product['name'] }}</td>
-                <td>{{ product['price'] }}</td>
+                <td>{{ product['price']|usd }}</td>
                 <td class="text-center">
                     <a class="remove" href="javascript:editProduct({{ product['id'] }})" title="Edit">
                         <svg class="bi" width="20" height="20" fill="currentColor">

@@ -5,7 +5,7 @@ from flask import Flask
 from flask_session import Session
 from werkzeug.exceptions import HTTPException, InternalServerError, default_exceptions
 
-from src.helpers import apology
+from src.helpers import apology, usd
 
 # Config for img files upload
 UPLOAD_IMG_FOLDER = 'src/static/img'
@@ -91,6 +91,8 @@ def create_app(test_config=None):
     def inject_settings_variables():
         settings = db.get_db().execute("SELECT * FROM settings WHERE id = 1").fetchone()
         return dict(settings=dict(settings))
+
+    app.jinja_env.filters["usd"] = usd
 
     return app
 
