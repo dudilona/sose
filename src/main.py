@@ -23,6 +23,16 @@ def catalog():
     return render_template("catalog.html", products=products)
 
 
+@bp.route("/products/<int:product_id>")
+def product(product_id):
+    """Show product"""
+    db = get_db()
+    prod = db.execute("SELECT * FROM product WHERE id = ?", (product_id,)).fetchone()
+
+    session['page'] = "catalog"
+    return render_template("product.html", product=prod)
+
+
 @bp.route("/contacts")
 def contacts():
     """Show home page"""

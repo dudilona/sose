@@ -93,3 +93,26 @@ function confirmProductDeletion() {
 function editProduct(productId) {
     window.location.href = "/admin/products/edit?productId=" + productId;
 }
+// ##########################################################################
+
+// # Product
+let piecesInput = document.querySelector("#piecesInput")
+let price = parseInt(document.querySelector(".price span").textContent)
+
+function leftBtnAction() {
+  let pieces = parseInt(piecesInput.value);
+  piecesInput.value = --pieces;
+}
+
+function rightBtnAction() {
+  let pieces = parseInt(piecesInput.value);
+  piecesInput.value = ++pieces;
+}
+
+function buyBtnAction() {
+  let pieces = parseInt(piecesInput.value);
+  let total = price * pieces;
+
+  alert(total);
+  piecesInput.value = 0
+}
