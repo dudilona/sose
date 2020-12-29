@@ -6,16 +6,13 @@
 
 {% block main %}
     <div class="mx-auto text-center">
-        <h1 id="title" class="display-4 mb-4">Welcome to the Geek drugs!</h1>
+        <h1 id="title" class="display-4 mb-4">{{ settings.main_header }}</h1>
         <div class="mb-2">
-            <img src="/static/img/home.jpg" class="img-fluid" alt="Geek drugs">
+            <img src="/static/img/home.png" class="img-fluid" alt="Geek drugs">
         </div>
         <div class="row">
             <div class="home-description">
-                <p class="lead">Welcome to the geek drugs! We are engaged in the production of magic pills that will
-                    help you master one of several programming languages. Take a look at our great
-                    <a class="link-primary" href="catalog.html">product catalog</a>. We wish you a great choice
-                    &#128521;</p>
+                <p class="lead">{{ settings.main_desc|safe }}</p>
             </div>
         </div>
     </div>

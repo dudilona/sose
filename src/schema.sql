@@ -29,6 +29,6 @@ CREATE TABLE settings
 );
 
 INSERT INTO settings (store_name, footer_desc, main_header, main_desc, phone, email, address)
-values ('SOSE', 'Edit this message in the admin panel', 'Welcome to the SOSE!', 'Welcome to the SOSE! The Simple Online Store Engine. ' ||
-'The first thing you need to do is click on the <a class="link-primary" href="/register.html">registration</a> link. ' ||
-'Know - the first registered user becomes the administrator. Enjoy &#128521;', 'Edit this in the admin panel', 'Edit this in the admin panel', 'Edit this in the admin panel');
+values ('SOSE', 'Edit this message in the admin panel', 'Welcome to the SOSE!', 'Welcome to the SOSE - the Simple Online Store Engine. ' ||
+'The first thing you need to do is click on the <a class="link-primary" href="/register">registration</a> link and register the new user. ' ||
+'Know - the first registered user becomes the administrator.<br />Enjoy &#128521;', 'Edit this in the admin panel', 'Edit this in the admin panel', 'Edit this in the admin panel');
