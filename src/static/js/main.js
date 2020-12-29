@@ -64,3 +64,28 @@ function editUser(userId) {
 $("#product_image_input").change(function() {
   pasteImageFromInput(this, "#product_image");
 });
+
+
+// Delete product
+let deletedProductId;
+
+function deleteProduct(productId) {
+    deletedProductId = productId;
+    let modal = new bootstrap.Modal(document.getElementById('deleteProductModal'), {keyboard: true});
+    modal.show();
+}
+
+function confirmProductDeletion() {
+    axios
+        .delete('/admin/products', {
+            data: {
+                productId: deletedProductId
+            }
+        })
+        .then(function () {
+            window.location.reload(true);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
