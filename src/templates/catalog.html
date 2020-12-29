@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Catalog
+{% endblock %}
+
+{% block main %}
+    <h1 class="display-5 mb-4">Catalog</h1>
+    {% for product in products %}
+    <div class="row mb-3">
+        <div class="col-3">
+            <a href="/products/{{ product['id'] }}">
+                <img src="/static/img/products/product{{ product['id'] }}.png" class="img-fluid" alt="{{ product['name'] }}">
+            </a>
+        </div>
+        <div class="col">
+            <h2><a href="/products/{{ product['id'] }}">{{ product['name'] }}</a></h2>
+            <p>{{ product['info'] }}</p>
+            <a class="btn btn-primary" href="/products/{{ product['id'] }}" role="button">Open</a>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+{% endblock %}
