@@ -103,8 +103,9 @@ def register():
 def login():
     """Log user in"""
 
-    # Forget any user_id
-    session.clear()
+    # Forget any user_id and admin
+    session.pop('user_id', None)
+    session.pop('admin', None)
 
     # User reached route via GET (as by clicking a link or via redirect)
     if request.method == "GET":
