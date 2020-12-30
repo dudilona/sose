@@ -4,6 +4,7 @@
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS settings;
 DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS "order";
 
 CREATE TABLE user
 (
@@ -50,3 +51,16 @@ CREATE TABLE product
     instruction TEXT,
     info        TEXT
 );
+
+CREATE TABLE "order"
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    user_id INTEGER,
+    customer_name TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    email TEXT NOT NULL,
+    address TEXT,
+    items_count INTEGER,
+    total_price NUMERIC
+)
