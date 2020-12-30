@@ -108,8 +108,32 @@ def make_order():
     # Save data to db
     db = get_db()
     order_id = db.execute("INSERT INTO 'order' (user_id, customer_name, phone, email, address, items_count, total_price)"
-               "VALUES (?, ?, ?, ?, ?, ?, ?)",
-               (user_id, customer_name, phone, email, address, tot_items_count, tot_price)).lastrowid
+                          "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                          (user_id, customer_name, phone, email, address, tot_items_count, tot_price)).lastrowid
+    db.commit()
+
+    session.pop("cart")
+    session.pop("cart_total_items")
+
+    data = {'order_id': order_id}
+    return jsonify(data)
+
+
+@bp.route("/make-order-new-user", methods=["POST"])
+def make_order_new_user():
+    # Collect order data
+    customer_name = request.args.get('customer_name')
+    phone = request.args.get('phone')
+    email = request.args.get('email')
+    address = request.args.get('address')
+    tot_items_count = items_count(session['cart'])
+    tot_price = get_total_price(session['cart'])
+
+    # Save data to db
+    db = get_db()
+    order_id = db.execute("INSERT INTO 'order' (customer_name, phone, email, address, items_count, total_price)"
+                          "VALUES (?, ?, ?, ?, ?, ?)",
+                          (customer_name, phone, email, address, tot_items_count, tot_price)).lastrowid
     db.commit()
 
     session.pop("cart")

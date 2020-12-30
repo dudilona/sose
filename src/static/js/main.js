@@ -186,3 +186,33 @@ function makeAuthUserOrder() {
         });
 }
 
+let newUserModal;
+
+function makeNewUserOrder() {
+    newUserModal = new bootstrap.Modal(document.getElementById('newUserModal'), {keyboard: true});
+    newUserModal.show()
+}
+
+function confirmNewUserOrder() {
+    formData = $('form').serialize();
+
+    axios
+        .post('/make-order-new-user?' + formData)
+        .then(function (response) {
+            newUserModal.hide()
+
+            let modal = new bootstrap.Modal(document.getElementById('successModal'), {keyboard: true});
+            modal.show()
+
+            document.getElementById('order_number').innerText = response.data.order_id
+
+            let modalEl = document.getElementById('successModal');
+            modalEl.addEventListener('hidden.bs.modal', function (event) {
+                window.location.href = "/catalog";
+            })
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+

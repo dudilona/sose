@@ -67,7 +67,7 @@
 
     <hr>
 
-    <!-- Modal - buy product -->
+    <!-- Modal - success order -->
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -83,6 +83,40 @@
                 <div class="modal-footer">
                     <a class="btn btn-primary" href="/catalog" role="button">Ok</a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal - new user order -->
+    <div class="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="newUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newUserModalLabel">Login or fill data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="javascript:void(0);" onsubmit="return confirmNewUserOrder()">
+                    <div class="modal-body">
+
+                        <p>For make this order you must <a href="/login">login</a> or fill the next data:</p>
+
+                        <div class="mb-3">
+                            <input autocomplete="off" class="form-control" name="customer_name" placeholder="Your name" type="text" required>
+                        </div>
+                        <div class="mb-3">
+                            <input autocomplete="off" class="form-control" name="phone" placeholder="Phone number" type="tel" required>
+                        </div>
+                        <div class="mb-3">
+                            <input autocomplete="off" class="form-control" name="email" placeholder="Email" type="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <input autocomplete="off" class="form-control" name="address" placeholder="Address (Optional)" type="text">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="submit" role="submit">Make order</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
