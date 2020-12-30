@@ -97,7 +97,6 @@ function editProduct(productId) {
 
 // # Product
 let piecesInput = document.querySelector("#piecesInput")
-let price = parseInt(document.querySelector(".price span").textContent)
 
 function leftBtnAction() {
   let pieces = parseInt(piecesInput.value);
@@ -111,6 +110,7 @@ function rightBtnAction() {
 
 function buyBtnAction() {
   let pieces = parseInt(piecesInput.value);
+  let price = parseInt(document.querySelector(".price span").textContent)
   let total = price * pieces;
 
   alert(total);
