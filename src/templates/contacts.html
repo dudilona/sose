@@ -10,5 +10,8 @@
     <p><b>Tel:</b> {{ settings.phone }}</p>
     <p><b>Email:</b> {{ settings.email }}</p>
     <p><b>Address:</b> {{ settings.address }}</p>
+    <div class="map-responsive">
+        {{ settings.google_map|safe }}
+    </div>
     <hr>
 {% endblock %}

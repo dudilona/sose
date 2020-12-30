@@ -86,6 +86,11 @@
                 <input id="address" autocomplete="off" class="form-control" name="address" placeholder="Some address" type="text"
                        style="width: 750px" {% if settings and settings['address'] %} value="{{ settings['address'] }}" {% endif %}>
             </div>
+            <label for="main_desc" class="mb-2">Google map</label>
+            <div class="form-floating mb-3">
+                <textarea class="form-control pt-2" id="google_map" name="google_map" style="height: 100px; max-width: 750px"
+                >{% if settings and settings['google_map'] %}{{ settings['google_map'] }}{% endif %}</textarea>
+            </div>
             <div>
                 <button class="btn btn-primary" type="submit">Submit</button>
             </div>

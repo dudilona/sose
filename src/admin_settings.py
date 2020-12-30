@@ -97,8 +97,8 @@ def admin_settings_contacts():
         settings = request.form
         # Update the settings
         db = get_db()
-        db.execute("UPDATE settings SET 'phone' = ?, 'email' = ?, 'address' = ? WHERE id = 1",
-                   (settings['phone'], settings['email'], settings['address']))
+        db.execute("UPDATE settings SET 'phone' = ?, 'email' = ?, 'address' = ?, 'google_map' = ? WHERE id = 1",
+                   (settings['phone'], settings['email'], settings['address'], settings['google_map']))
         db.commit()
 
         return redirect("/admin/settings")

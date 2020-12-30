@@ -43,3 +43,18 @@ h3 {
 #price-input-group {
   max-width: 255px;
 }
+
+.map-responsive{
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    min-height: 500px;
+}
+
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}
