@@ -2,16 +2,17 @@
 
 // Paste image file from input
 function pasteImageFromInput(input, id) {
-  if (input.files && input.files[0]) {
-    var reader = new FileReader();
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
-    reader.onload = function(e) {
-      $(id).attr('src', e.target.result);
+        reader.onload = function (e) {
+            $(id).attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
     }
-
-    reader.readAsDataURL(input.files[0]); // convert to base64 string
-  }
 }
+
 // ##########################################################################
 
 // # Admin panel section
@@ -19,13 +20,13 @@ function pasteImageFromInput(input, id) {
 // ## Settings
 
 // Favicon icon
-$("#favicon_input").change(function() {
-  pasteImageFromInput(this, "#favicon_img");
+$("#favicon_input").change(function () {
+    pasteImageFromInput(this, "#favicon_img");
 });
 
 // Main image
-$("#main_image_input").change(function() {
-  pasteImageFromInput(this, "#main_image");
+$("#main_image_input").change(function () {
+    pasteImageFromInput(this, "#main_image");
 });
 // ##########################################################################
 
@@ -56,13 +57,14 @@ function confirmUserDeletion() {
 function editUser(userId) {
     window.location.href = "/admin/users/edit?userId=" + userId;
 }
+
 // ##########################################################################
 
 // ## Products
 
 // Product image
-$("#product_image_input").change(function() {
-  pasteImageFromInput(this, "#product_image");
+$("#product_image_input").change(function () {
+    pasteImageFromInput(this, "#product_image");
 });
 
 
@@ -93,26 +95,29 @@ function confirmProductDeletion() {
 function editProduct(productId) {
     window.location.href = "/admin/products/edit?productId=" + productId;
 }
+
 // ##########################################################################
 
 // # Product
 let piecesInput = document.querySelector("#piecesInput")
 
 function leftBtnAction() {
-  let pieces = parseInt(piecesInput.value);
-  piecesInput.value = --pieces;
+    let pieces = parseInt(piecesInput.value);
+    if (pieces > 0) {
+        piecesInput.value = --pieces;
+    }
 }
 
 function rightBtnAction() {
-  let pieces = parseInt(piecesInput.value);
-  piecesInput.value = ++pieces;
+    let pieces = parseInt(piecesInput.value);
+    piecesInput.value = ++pieces;
 }
 
 function buyBtnAction() {
-  let pieces = parseInt(piecesInput.value);
-  let price = parseInt(document.querySelector(".price span").textContent)
-  let total = price * pieces;
+    let pieces = parseInt(piecesInput.value);
+    let price = parseInt(document.querySelector(".price span").textContent)
+    let total = price * pieces;
 
-  alert(total);
-  piecesInput.value = 0
+    alert(total);
+    piecesInput.value = 0
 }
