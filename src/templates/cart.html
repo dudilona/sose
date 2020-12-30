@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Cart
+{% endblock %}
+
+{% block main %}
+    <h1 class="display-5 mb-4">Cart</h1>
+
+    <table class="table table-striped" data-toggle="table">
+        <thead>
+        <tr>
+            <th scope="col">image</th>
+            <th scope="col" data-sortable="true">product name</th>
+            <th scope="col" data-sortable="true">pieces</th>
+            <th scope="col" data-sortable="true">price</th>
+            <th scope="col" data-sortable="true">total</th>
+            <th scope="col">operate</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cart_item in cart_items %}
+            <tr>
+                <th scope="row">
+                    <img src="/static/img/products/product{{ cart_item['product_id'] }}.png" class="img-thumbnail"
+                         alt="product{{ cart_item['product_id'] }}.png"
+                         style="max-height: 90px">
+                </th>
+                <td>{{ cart_item['name'] }}</td>
+                <td>{{ cart_item['pieces'] }}</td>
+                <td>{{ cart_item['price']|usd }}</td>
+                <td>{{ cart_item['total']|usd }}</td>
+                <td class="text-center"> &nbsp;
+                    <a class="remove" href="javascript:deleteItemFromCart({{ cart_item['id'] }})" title="Remove">
+                        <svg class="bi" width="20" height="20" fill="currentColor">
+                            <use xlink:href="/static/css/bootstrap-icons.svg#trash-fill"/>
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {%  if cart_items %}
+    <div class="cart-total row g-4 mt-0">
+        <div class="col-auto">
+            <p>Total items: {{ total_items }}</p>
+        </div>
+        <div class="col-auto">
+            <p>Total price: {{ total_price|usd }}</p>
+        </div>
+        <div class="col-auto">
+            <button type="button" class="btn btn-primary mb-3">Make order</button>
+        </div>
+    </div>
+    {% endif %}
+
+    <hr>
+
+    <style>
+        tbody .no-records-found td:after {
+            content: " - the cart is empty!";
+        }
+    </style>
+
+{% endblock %}

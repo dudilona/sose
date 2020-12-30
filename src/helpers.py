@@ -27,3 +27,13 @@ def allowed_file(filename):
     """Check the file extensions"""
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in current_app.config["ALLOWED_IMG_EXTENSIONS"]
+
+
+def items_count(cart_items):
+    """Calculate total items count in the cart"""
+    count = 0
+    if cart_items is not None:
+        for item in cart_items:
+            count = count + item['pieces']
+
+    return count

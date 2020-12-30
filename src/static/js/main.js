@@ -113,12 +113,14 @@ function rightBtnAction() {
     piecesInput.value = ++pieces;
 }
 
-function buyBtnAction() {
+function buyBtnAction(product_id) {
     let pieces = parseInt(piecesInput.value);
     let price = parseInt(document.querySelector(".price span").textContent)
     let total = price * pieces;
 
     if (pieces > 0) {
+        addProductToCart(product_id, pieces)
+
         let modal = new bootstrap.Modal(document.getElementById('buyModal'), {keyboard: true});
         document.getElementById('modal_pieces').innerText = pieces
         document.getElementById('modal_total').innerText = total
@@ -127,4 +129,38 @@ function buyBtnAction() {
     }
 
     piecesInput.value = 0
+}
+
+function addProductToCart(product_id, pieces) {
+    axios
+        .post('/cart', {
+            product_id: product_id,
+            pieces: pieces
+        })
+        .then(function () {
+            updateCartCountIndicator(pieces)
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function deleteItemFromCart(item_id) {
+    axios
+        .delete('/cart', {
+            data: {
+                item_id: item_id
+            }
+        })
+        .then(function () {
+            window.location.reload(true);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function updateCartCountIndicator(count) {
+    let current_count = parseInt(document.getElementById('cart_count_indicator').innerText)
+    document.getElementById('cart_count_indicator').innerText = current_count + count
 }

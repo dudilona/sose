@@ -58,3 +58,7 @@ h3 {
     width:100%;
     position:absolute;
 }
+
+.cart-total p {
+    margin-top: 7px;
+}

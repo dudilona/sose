@@ -50,8 +50,25 @@
                     <li class="nav-item"><a {% if session.page == "contacts" %}class="nav-link active" aria-current="page"
                                             {% else %}class="nav-link"{% endif %} href="/contacts">Contacts</a></li>
                 </ul>
-                {% if session.user_id %}
-                    <ul class="navbar-nav ml-auto">
+
+                <ul class="navbar-nav ml-auto">
+
+                    <li class="nav-item">
+                        <a {% if session.page == "cart" %}class="nav-link active" aria-current="page"
+                           {% else %}class="nav-link"{% endif %} href="/cart">
+                            <svg class="bi" width="21" height="21" fill="currentColor" style="margin-top: -2px">
+                                <use xlink:href="/static/css/bootstrap-icons.svg#cart2"/>
+                            </svg>
+                            {% if session.cart_total_items %}
+                                (<span id="cart_count_indicator">{{ session.cart_total_items }}</span>)
+                            {% else %}
+                                (<span id="cart_count_indicator">0</span>)
+                            {% endif %}
+                        </a>
+                    </li>
+
+                    {% if session.user_id %}
+
                         {% if session.admin %}
                             <li class="nav-item">
                                 <a {% if session.page == "admin" %}class="nav-link active" aria-current="page"
@@ -60,6 +77,7 @@
                                 </a>
                             </li>
                         {% endif %}
+
                         <li class="nav-item">
                             <a {% if session.page == "user" %}class="nav-link active" aria-current="page"
                                {% else %}class="nav-link"{% endif %} href="/user/edit">
@@ -69,20 +87,25 @@
                                 {{ session.username }}
                             </a>
                         </li>
+
                         <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
-                    </ul>
-                {% else %}
-                    <ul class="navbar-nav ml-auto">
+
+                    {% else %}
+
                         <li class="nav-item">
                             <a {% if session.page == "register" %}class="nav-link active" aria-current="page"
                                {% else %}class="nav-link"{% endif %} href="/register">Register</a>
                         </li>
+
                         <li class="nav-item">
                             <a {% if session.page == "login" %}class="nav-link active" aria-current="page"
                                {% else %}class="nav-link"{% endif %} href="/login">Log In</a>
                         </li>
-                    </ul>
-                {% endif %}
+
+                    {% endif %}
+
+                </ul>
+
             </div>
         </div>
     </nav>

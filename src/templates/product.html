@@ -22,7 +22,7 @@
                 <button id="leftBtn" class="btn btn-outline-secondary" type="button" onclick="leftBtnAction()">&lt;</button>
                 <button id="rightBtn" class="btn btn-outline-secondary" type="button" onclick="rightBtnAction()">&gt;</button>
                 <input id="piecesInput" type="number" class="form-control" min="0" value="0">
-                <button id="buyBtn" class="btn btn-outline-primary" type="button" onclick="buyBtnAction()">Buy</button>
+                <button id="buyBtn" class="btn btn-outline-primary" type="button" onclick="buyBtnAction({{ product['id'] }})">Buy</button>
             </div>
         </div>
     </div>
@@ -44,8 +44,8 @@
                     Do you want to continue shopping or go to the shopping cart?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue</button>
-                    <button type="button" class="btn btn-primary" onclick="javascript:goToCart()">Go to cart</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="">Continue</button>
+                    <a class="btn btn-primary" href="/cart" role="button">Go to cart</a>
                 </div>
             </div>
         </div>
