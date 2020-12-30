@@ -81,7 +81,7 @@ def admin_settings_main():
         # File upload
         file = request.files['main_image_input']
         if file and allowed_file(file.filename):
-            filename = "home.jpg"
+            filename = "home.png"
             file.save(os.path.join(UPLOAD_IMG_FOLDER, filename))
 
         return redirect("/admin/settings")
