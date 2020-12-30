@@ -5,26 +5,50 @@
 {% endblock %}
 
 {% block main %}
-<h1 class="display-5 mb-4">{{ product['name'] }}</h1>
-<div class="row mb-3">
-    <div class="col-lg-6 col-md-12 col-sm-12">
-        <img src="/static/img/products/product{{ product['id'] }}.png" class="img-fluid" alt="Python blood">
-    </div>
-    <div class="col">
-        <h2>{{ product['header'] }}</h2>
-        <h4>Instruction:</h4>
-        <p>{{ product['instruction'] }}</p>
-        <h4>Info:</h4>
-        <p>{{ product['info'] }}</p>
-        <div class="price" id="price">$ <span>{{ product['price'] }}</span></div>
-        <div id="price-input-group" class="input-group">
-            <span class="input-group-text">Pieces</span>
-            <button id="leftBtn" class="btn btn-outline-secondary" type="button" onclick="leftBtnAction()">&lt;</button>
-            <button id="rightBtn" class="btn btn-outline-secondary" type="button" onclick="rightBtnAction()">&gt;</button>
-            <input id="piecesInput" type="number" class="form-control" min="0" value="0">
-            <button id="buyBtn" class="btn btn-outline-primary" type="button" onclick="buyBtnAction()">Buy</button>
+    <h1 class="display-5 mb-4">{{ product['name'] }}</h1>
+    <div class="row mb-3">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <img src="/static/img/products/product{{ product['id'] }}.png" class="img-fluid" alt="Python blood">
+        </div>
+        <div class="col">
+            <h2>{{ product['header'] }}</h2>
+            <h4>Instruction:</h4>
+            <p>{{ product['instruction'] }}</p>
+            <h4>Info:</h4>
+            <p>{{ product['info'] }}</p>
+            <div class="price" id="price">$ <span>{{ product['price'] }}</span></div>
+            <div id="price-input-group" class="input-group">
+                <span class="input-group-text">Pieces</span>
+                <button id="leftBtn" class="btn btn-outline-secondary" type="button" onclick="leftBtnAction()">&lt;</button>
+                <button id="rightBtn" class="btn btn-outline-secondary" type="button" onclick="rightBtnAction()">&gt;</button>
+                <input id="piecesInput" type="number" class="form-control" min="0" value="0">
+                <button id="buyBtn" class="btn btn-outline-primary" type="button" onclick="buyBtnAction()">Buy</button>
+            </div>
         </div>
     </div>
-</div>
-<hr>
+    <hr>
+
+    <!-- Modal - buy product -->
+    <div class="modal fade" id="buyModal" tabindex="-1" aria-labelledby="buyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="buyModalLabel">The product added to cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Info:<br/>
+                    {{ product['name'] }} x <span id="modal_pieces"></span> pieces<br/>
+                    Total: $<span id="modal_total"></span><br/>
+                    <br/>
+                    Do you want to continue shopping or go to the shopping cart?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue</button>
+                    <button type="button" class="btn btn-primary" onclick="javascript:goToCart()">Go to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

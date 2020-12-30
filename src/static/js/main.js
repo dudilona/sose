@@ -118,6 +118,13 @@ function buyBtnAction() {
     let price = parseInt(document.querySelector(".price span").textContent)
     let total = price * pieces;
 
-    alert(total);
+    if (pieces > 0) {
+        let modal = new bootstrap.Modal(document.getElementById('buyModal'), {keyboard: true});
+        document.getElementById('modal_pieces').innerText = pieces
+        document.getElementById('modal_total').innerText = total
+
+        modal.show();
+    }
+
     piecesInput.value = 0
 }
