@@ -145,6 +145,13 @@ function addProductToCart(product_id, pieces) {
         });
 }
 
+function updateCartCountIndicator(count) {
+    let current_count = parseInt(document.getElementById('cart_count_indicator').innerText)
+    document.getElementById('cart_count_indicator').innerText = current_count + count
+}
+
+// # Cart
+
 function deleteItemFromCart(item_id) {
     axios
         .delete('/cart', {
@@ -160,7 +167,22 @@ function deleteItemFromCart(item_id) {
         });
 }
 
-function updateCartCountIndicator(count) {
-    let current_count = parseInt(document.getElementById('cart_count_indicator').innerText)
-    document.getElementById('cart_count_indicator').innerText = current_count + count
+function makeAuthUserOrder() {
+    axios
+        .post('/make-order')
+        .then(function (response) {
+            let modal = new bootstrap.Modal(document.getElementById('successModal'), {keyboard: true});
+            modal.show()
+
+            document.getElementById('order_number').innerText = response.data.order_id
+
+            let modalEl = document.getElementById('successModal');
+            modalEl.addEventListener('hidden.bs.modal', function (event) {
+                window.location.href = "/catalog";
+            })
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
+

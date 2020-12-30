@@ -37,3 +37,13 @@ def items_count(cart_items):
             count = count + item['pieces']
 
     return count
+
+
+def get_total_price(cart_items):
+    """Calculate total price for cart items"""
+    price = 0
+    if cart_items is not None:
+        for item in cart_items:
+            price = price + item['price']
+
+    return price

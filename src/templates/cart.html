@@ -41,27 +41,51 @@
         {% endfor %}
         </tbody>
     </table>
-
-    {%  if cart_items %}
-    <div class="cart-total row g-4 mt-0">
-        <div class="col-auto">
-            <p>Total items: {{ total_items }}</p>
-        </div>
-        <div class="col-auto">
-            <p>Total price: {{ total_price|usd }}</p>
-        </div>
-        <div class="col-auto">
-            <button type="button" class="btn btn-primary mb-3">Make order</button>
-        </div>
-    </div>
-    {% endif %}
-
-    <hr>
-
     <style>
         tbody .no-records-found td:after {
             content: " - the cart is empty!";
         }
     </style>
+
+    {% if cart_items %}
+        <div class="cart-total row g-4 mt-0">
+            <div class="col-auto">
+                <p>Total items: {{ total_items }}</p>
+            </div>
+            <div class="col-auto">
+                <p>Total price: {{ total_price|usd }}</p>
+            </div>
+            <div class="col-auto">
+                {% if session.user_id %}
+                    <button type="button" class="btn btn-primary mb-3" onclick="makeAuthUserOrder()">Make order</button>
+                {% else %}
+                    <button type="button" class="btn btn-primary mb-3" onclick="makeNewUserOrder()">Make order</button>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <hr>
+
+    <!-- Modal - buy product -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">The order was successfully placed!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Your order number: <span id="order_number"></span><br/>
+                    Our manager will contact you shortly. <br/>
+                    Thank you!
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-primary" href="/catalog" role="button">Ok</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}

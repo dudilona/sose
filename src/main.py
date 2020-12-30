@@ -1,11 +1,11 @@
 import json
 
-from flask import Blueprint, session, request, Response
+from flask import Blueprint, session, request, Response, jsonify
 from flask import render_template
 
 from src import apology
 from src.db import get_db
-from src.helpers import items_count
+from src.helpers import items_count, get_total_price
 
 bp = Blueprint("main", __name__)
 
@@ -81,7 +81,6 @@ def cart():
 
     """Delete the cart item from the cart"""
     if request.method == "DELETE":
-
         item_id = json.loads(request.data)['item_id']
 
         session['cart'] = [item for item in session['cart'] if not item['id'] == item_id]
@@ -91,6 +90,33 @@ def cart():
         return Response(status=200)
 
     return apology("Method Not Allowed", 405)
+
+
+@bp.route("/make-order", methods=["POST"])
+def make_order():
+    # Collect order data
+    user_id = session['user_id']
+    db = get_db()
+    user = db.execute("SELECT * FROM user WHERE id = ?", (user_id,)).fetchone()
+    customer_name = user['fullname']
+    phone = user['phone']
+    email = user['email']
+    address = user['address']
+    tot_items_count = items_count(session['cart'])
+    tot_price = get_total_price(session['cart'])
+
+    # Save data to db
+    db = get_db()
+    order_id = db.execute("INSERT INTO 'order' (user_id, customer_name, phone, email, address, items_count, total_price)"
+               "VALUES (?, ?, ?, ?, ?, ?, ?)",
+               (user_id, customer_name, phone, email, address, tot_items_count, tot_price)).lastrowid
+    db.commit()
+
+    session.pop("cart")
+    session.pop("cart_total_items")
+
+    data = {'order_id': order_id}
+    return jsonify(data)
 
 
 @bp.route("/contacts")
