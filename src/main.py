@@ -4,6 +4,7 @@ from flask import Blueprint, session, request, Response, jsonify
 from flask import render_template
 
 from src import apology
+from src.auth import login_required
 from src.db import get_db
 from src.helpers import items_count, get_total_price
 
@@ -92,6 +93,7 @@ def cart():
     return apology("Method Not Allowed", 405)
 
 
+@login_required
 @bp.route("/make-order", methods=["POST"])
 def make_order():
     # Collect order data

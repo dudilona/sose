@@ -100,3 +100,17 @@ def user_password():
         return redirect("/user/edit?" + user_id)
 
     return apology("Method Not Allowed", 405)
+
+
+@bp.route("/user/orders")
+@login_required
+def user_orders():
+    """ User panel - orders"""
+    if request.method == "GET":
+        # Get all orders
+        db = get_db()
+        orders = db.execute("SELECT * FROM 'order' WHERE user_id = ?", (session['user_id'],)).fetchall()
+
+        return render_template("user/user-orders.html", orders=orders)
+
+    return apology("Method Not Allowed", 405)
