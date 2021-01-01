@@ -44,6 +44,6 @@ def get_total_price(cart_items):
     price = 0
     if cart_items is not None:
         for item in cart_items:
-            price = price + item['price']
+            price = price + item['price'] * item['pieces']
 
     return price
